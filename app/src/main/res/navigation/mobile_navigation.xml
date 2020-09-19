@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/tourist_home">
+    <fragment
+        android:id="@+id/tourist_home"
+        android:name="com.example.tourrent.tourist.tourist_home"
+        android:label="tourist_home" >
+        <action
+            android:id="@+id/action_tourist_home_to_tourist_search"
+            app:destination="@id/tourist_search" />
+    </fragment>
+    <fragment
+        android:id="@+id/HomePage"
+        android:name="com.example.tourrent.HomePage"
+        android:label="HomePage" >
+        <action
+            android:id="@+id/action_homePage_to_tourist_login"
+            app:destination="@id/tourist_login" />
+        <action
+            android:id="@+id/action_homePage_to_tourist_register"
+            app:destination="@id/tourist_register" />
+        <action
+            android:id="@+id/action_homePage_to_guide_login"
+            app:destination="@id/guide_login" />
+        <action
+            android:id="@+id/action_homePage_to_guide_register"
+            app:destination="@id/guide_register" />
+        <action
+            android:id="@+id/action_homePage_to_tourist_profile"
+            app:destination="@id/tourist_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_login"
+        android:name="com.example.tourrent.login.guide_login"
+        android:label="fragment_guide_login"
+        tools:layout="@layout/fragment_guide_login" >
+        <action
+            android:id="@+id/action_guide_login_to_guide_recover"
+            app:destination="@id/guide_recover" />
+        <action
+            android:id="@+id/action_guide_login_to_guide_setup1"
+            app:destination="@id/guide_setup1" />
+        <action
+            android:id="@+id/action_guide_login_to_guide_setup2"
+            app:destination="@id/guide_setup2" />
+        <action
+            android:id="@+id/action_guide_login_to_guide_setup3"
+            app:destination="@id/guide_setup3" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_setup2"
+        android:name="com.example.tourrent.register.guide_setup2"
+        android:label="fragment_guide_setup2"
+        tools:layout="@layout/fragment_guide_setup2" >
+        <action
+            android:id="@+id/action_guide_setup2_to_guide_setup3"
+            app:destination="@id/guide_setup3" />
+        <action
+            android:id="@+id/action_guide_setup2_to_guide_edit_language"
+            app:destination="@id/guide_edit_language" />
+        <action
+            android:id="@+id/action_guide_setup2_to_guide_edit_tags"
+            app:destination="@id/guide_edit_tags" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_register"
+        android:name="com.example.tourrent.register.guide_register"
+        android:label="fragment_guide_register"
+        tools:layout="@layout/fragment_guide_register" >
+        <action
+            android:id="@+id/action_guide_register_to_guide_setup1"
+            app:destination="@id/guide_setup1" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_setup1"
+        android:name="com.example.tourrent.register.guide_setup1"
+        android:label="fragment_guide_setup1"
+        tools:layout="@layout/fragment_guide_setup1" >
+        <action
+            android:id="@+id/action_guide_setup1_to_guide_setup2"
+            app:destination="@id/guide_setup2" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_setup3"
+        android:name="com.example.tourrent.register.guide_setup3"
+        android:label="fragment_guide_setup3"
+        tools:layout="@layout/fragment_guide_setup3" />
+    <fragment
+        android:id="@+id/tourist_login"
+        android:name="com.example.tourrent.login.tourist_login"
+        android:label="fragment_tourist_login"
+        tools:layout="@layout/fragment_tourist_login" >
+        <action
+            android:id="@+id/action_tourist_login_to_tourist_recover"
+            app:destination="@id/tourist_recover" />
+        <action
+            android:id="@+id/action_tourist_login_to_tourist_home"
+            app:destination="@id/tourist_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourist_register"
+        android:name="com.example.tourrent.register.tourist_register"
+        android:label="fragment_tourist_register"
+        tools:layout="@layout/fragment_tourist_register" >
+        <action
+            android:id="@+id/action_tourist_register_to_tourist_login"
+            app:destination="@id/tourist_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_recover"
+        android:name="com.example.tourrent.login.guide_recover"
+        android:label="guide_recover"
+        tools:layout="@layout/fragment_guide_recover" >
+        <action
+            android:id="@+id/action_guide_recover_to_homePage"
+            app:destination="@id/HomePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourist_recover"
+        android:name="com.example.tourrent.login.tourist_recover"
+        android:label="tourist_recover"
+        tools:layout="@layout/fragment_tourist_recover">
+        <action
+            android:id="@+id/action_tourist_recover_to_homePage"
+            app:destination="@id/HomePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_edit_language"
+        android:name="com.example.tourrent.profile.guide_edit_language"
+        android:label="guide_edit_language"
+        tools:layout="@layout/fragment_guide_edit_language" />
+    <fragment
+        android:id="@+id/guide_edit_tags"
+        android:name="com.example.tourrent.profile.guide_edit_tags"
+        android:label="guide_edit_tags"
+        tools:layout="@layout/fragment_guide_edit_tags"/>
+    <fragment
+        android:id="@+id/tourist_profile"
+        android:name="com.example.tourrent.profile.tourist_profile"
+        android:label="tourist_profile" >
+        <action
+            android:id="@+id/action_tourist_profile_to_tourist_edit_password"
+            app:destination="@id/tourist_edit_password" />
+        <action
+            android:id="@+id/action_tourist_profile_to_HomePage"
+            app:destination="@id/HomePage" />
+        <action
+            android:id="@+id/action_tourist_profile_to_tourist_home"
+            app:destination="@id/tourist_home" />
+        <action
+            android:id="@+id/action_tourist_profile_to_booking_history"
+            app:destination="@id/booking_history" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourist_edit_password"
+        android:name="com.example.tourrent.profile.tourist_edit_password"
+        android:label="tourist_edit_password" >
+        <action
+            android:id="@+id/action_tourist_edit_password_to_tourist_profile"
+            app:destination="@id/tourist_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_profile"
+        android:name="com.example.tourrent.profile.guide_profile"
+        android:label="guide_profile" >
+        <action
+            android:id="@+id/action_guide_profile_to_guide_edit_tags"
+            app:destination="@id/guide_edit_tags" />
+        <action
+            android:id="@+id/action_guide_profile_to_guide_edit_language"
+            app:destination="@id/guide_edit_language" />
+        <action
+            android:id="@+id/action_guide_profile_to_tourist_edit_password"
+            app:destination="@id/tourist_edit_password" />
+        <action
+            android:id="@+id/action_guide_profile_to_booking_history"
+            app:destination="@id/booking_history" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourist_search"
+        android:name="com.example.tourrent.search.tourist_search"
+        android:label="tourist_search" >
+        <action
+            android:id="@+id/action_tourist_search_to_search_list"
+            app:destination="@id/search_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/search_list"
+        android:name="com.example.tourrent.search.search_list"
+        android:label="fragment_search_list"
+        tools:layout="@layout/fragment_search_list" >
+        <argument
+            android:name="location"
+            app:argType="string"
+            android:defaultValue="All" />
+        <argument
+            android:name="tags"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_search_list_to_tourist_guide"
+            app:destination="@id/tourist_guide" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourist_guide"
+        android:name="com.example.tourrent.search.tourist_guide"
+        android:label="tourist_guide" >
+        <argument android:name="key"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_tourist_guide_to_tour_personalise"
+            app:destination="@id/tour_personalise" />
+        <action
+            android:id="@+id/action_tourist_guide_to_guide_review"
+            app:destination="@id/guide_review" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatroom_list"
+        android:name="com.example.tourrent.chatroom.chatroom_list"
+        android:label="chatroom_list" />
+    <fragment
+        android:id="@+id/tour_personalise"
+        android:name="com.example.tourrent.booking.tour_personalise"
+        android:label="tour_personalise" >
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="location"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_tour_personalise_to_booking_list"
+            app:destination="@id/booking_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_list"
+        android:name="com.example.tourrent.booking.booking_list"
+        android:label="booking_list" >
+        <action
+            android:id="@+id/action_booking_list_to_booking_pending"
+            app:destination="@id/booking_pending" />
+        <action
+            android:id="@+id/action_booking_list_to_tourist_booking"
+            app:destination="@id/tourist_booking" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_pending"
+        android:name="com.example.tourrent.booking.booking_pending"
+        android:label="booking_pending" >
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_booking_pending_to_tourist_booking"
+            app:destination="@id/tourist_booking" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourist_booking"
+        android:name="com.example.tourrent.booking.tourist_booking"
+        android:label="tourist_booking" >
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_tourist_booking_to_booking_list"
+            app:destination="@id/booking_list" />
+        <action
+            android:id="@+id/action_tourist_booking_to_edit_schedule"
+            app:destination="@id/edit_schedule" />
+        <action
+            android:id="@+id/action_tourist_booking_to_tour_remarks"
+            app:destination="@id/tour_remarks" />
+    </fragment>
+    <fragment
+        android:id="@+id/edit_schedule"
+        android:name="com.example.tourrent.booking.edit_schedule"
+        android:label="edit_schedule" >
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument android:name="sDate"
+            app:argType="string" />
+        <argument
+            android:name="eDate"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/tour_remarks"
+        android:name="com.example.tourrent.booking.tour_remarks"
+        android:label="tour_remarks" >
+        <argument
+            android:name="key"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_history"
+        android:name="com.example.tourrent.booking.booking_history"
+        android:label="booking_history" >
+        <action
+            android:id="@+id/action_booking_history_to_history2"
+            app:destination="@id/history" />
+    </fragment>
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.tourrent.booking.history"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_history_to_guide_review"
+            app:destination="@id/guide_review" />
+    </fragment>
+    <fragment
+        android:id="@+id/guide_review"
+        android:name="com.example.tourrent.review.guide_review"
+        android:label="guide_review" >
+        <argument
+            android:name="gkey"
+            app:argType="string" />
+    </fragment>
+</navigation>
