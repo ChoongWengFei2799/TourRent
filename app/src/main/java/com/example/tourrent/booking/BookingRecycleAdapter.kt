@@ -109,7 +109,7 @@ private val key: ArrayList<String>
         else{
             holder.status.text = "Ongoing"
         }
-
+        
         holder.itemView.setOnClickListener {
             if(bookingList[position].type!!.contains("P")){
                 val action = booking_listDirections.actionBookingListToBookingPending(key[position])

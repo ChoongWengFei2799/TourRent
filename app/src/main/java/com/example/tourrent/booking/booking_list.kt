@@ -88,8 +88,12 @@ class booking_list : Fragment() {
                         binding.warning.visibility = View.VISIBLE
                     } else {
                         binding.warning.visibility = View.GONE
+
                         binding.pending.adapter = BookingRecycleAdapter(pendingList, pendingKey)
                         binding.ongoing.adapter = BookingRecycleAdapter(bookingList, bookingKey)
+
+                        (binding.pending.adapter as BookingRecycleAdapter).notifyDataSetChanged()
+                        (binding.ongoing.adapter as BookingRecycleAdapter).notifyDataSetChanged()
                     }
                 }
             })
@@ -136,8 +140,12 @@ class booking_list : Fragment() {
                         binding.warning.visibility = View.VISIBLE
                     } else {
                         binding.warning.visibility = View.GONE
+
                         binding.pending.adapter = BookingRecycleAdapter(pendingList, pendingKey)
                         binding.ongoing.adapter = BookingRecycleAdapter(bookingList, bookingKey)
+
+                        (binding.pending.adapter as BookingRecycleAdapter).notifyDataSetChanged()
+                        (binding.ongoing.adapter as BookingRecycleAdapter).notifyDataSetChanged()
                     }
                 }
             })

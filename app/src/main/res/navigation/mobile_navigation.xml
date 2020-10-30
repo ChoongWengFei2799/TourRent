@@ -215,11 +215,18 @@
         <action
             android:id="@+id/action_tourist_guide_to_guide_review"
             app:destination="@id/guide_review" />
+        <action
+            android:id="@+id/action_tourist_guide_to_tourist_chatroom"
+            app:destination="@id/tourist_chatroom" />
     </fragment>
     <fragment
         android:id="@+id/chatroom_list"
         android:name="com.example.tourrent.chatroom.chatroom_list"
-        android:label="chatroom_list" />
+        android:label="chatroom_list" >
+        <action
+            android:id="@+id/action_chatroom_list_to_tourist_chatroom"
+            app:destination="@id/tourist_chatroom" />
+    </fragment>
     <fragment
         android:id="@+id/tour_personalise"
         android:name="com.example.tourrent.booking.tour_personalise"
@@ -252,9 +259,6 @@
         <argument
             android:name="key"
             app:argType="string" />
-        <action
-            android:id="@+id/action_booking_pending_to_tourist_booking"
-            app:destination="@id/tourist_booking" />
     </fragment>
     <fragment
         android:id="@+id/tourist_booking"
@@ -272,6 +276,12 @@
         <action
             android:id="@+id/action_tourist_booking_to_tour_remarks"
             app:destination="@id/tour_remarks" />
+        <action
+            android:id="@+id/action_tourist_booking_to_tourist_chatroom"
+            app:destination="@id/tourist_chatroom" />
+        <action
+            android:id="@+id/action_tourist_booking_to_createLiveStream"
+            app:destination="@id/createLiveStream" />
     </fragment>
     <fragment
         android:id="@+id/edit_schedule"
@@ -322,4 +332,21 @@
             android:name="gkey"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/tourist_chatroom"
+        android:name="com.example.tourrent.chatroom.tourist_chatroom"
+        android:label="tourist_chatroom" >
+        <argument
+            android:name="roomID"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="guideID"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/createLiveStream"
+        android:name="com.example.tourrent.LiveStream.CreateLiveStream"
+        android:label="CreateLiveStream" />
 </navigation>

@@ -49,7 +49,7 @@ class edit_schedule : Fragment() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         val sch = ArrayList<Schedule>()
-        rootRef.child("Schedule").orderByChild("bookingId").equalTo(bkey).addListenerForSingleValueEvent(object :
+        rootRef.child("Schedule").orderByChild("bookingId").equalTo(bkey).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEach{

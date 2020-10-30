@@ -90,6 +90,8 @@ class guide_login : Fragment() {
                     editor.putString("Key", key)
                     editor.apply()
 
+                    Toast.makeText(activity, "Login Success", Toast.LENGTH_LONG).show()
+
                     val storageRef = FirebaseStorage.getInstance().reference
                     storageRef.child(key).downloadUrl.addOnSuccessListener {
                         if(prof.tags != "" && prof.location != "") {

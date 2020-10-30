@@ -9,14 +9,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tourrent.Dclass.Chatroom
-import com.example.tourrent.Dclass.Guide
 import com.example.tourrent.R
 import com.example.tourrent.databinding.FragmentChatroomListBinding
-import com.example.tourrent.search.SearchRecycleAdapter
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class chatroom_list : Fragment() {
 
@@ -36,6 +33,7 @@ class chatroom_list : Fragment() {
         linearLayoutManager = LinearLayoutManager(activity)
         binding.recycleView.layoutManager = linearLayoutManager
 
+        binding.warning.visibility = View.GONE
         val prefs = requireActivity().getSharedPreferences("INFO", Context.MODE_PRIVATE)
         val key = prefs.getString("Key", "")
         val mode = prefs.getString("Mode","")
@@ -50,11 +48,9 @@ class chatroom_list : Fragment() {
 
                 override fun onDataChange(p0: DataSnapshot) {
                     val chatroomList = ArrayList<Chatroom>()
-                    val key = ArrayList<String>()
                     p0.children.forEach {
                         val chatroom = it.getValue(Chatroom::class.java)
                         chatroomList.add(chatroom!!)
-                        key.add(it.key!!)
                     }
 
                     if(chatroomList.isNullOrEmpty()){
@@ -62,7 +58,10 @@ class chatroom_list : Fragment() {
                     }
                     else {
                         binding.warning.visibility = View.GONE
-                        binding.recycleView.adapter = ChatroomRecycleAdapter(chatroomList, key, mode)
+                        chatroomList.sortByDescending { it.lastupdate }
+
+                        binding.recycleView.adapter = ChatroomRecycleAdapter(chatroomList, mode)
+                        binding.recycleView.adapter?.notifyDataSetChanged()
                     }
                 }
             })
@@ -78,11 +77,9 @@ class chatroom_list : Fragment() {
 
                 override fun onDataChange(p0: DataSnapshot) {
                     val chatroomList = ArrayList<Chatroom>()
-                    val key = ArrayList<String>()
                     p0.children.forEach {
                         val chatroom = it.getValue(Chatroom::class.java)
                         chatroomList.add(chatroom!!)
-                        key.add(it.key!!)
                     }
 
                     if(chatroomList.isNullOrEmpty()){
@@ -90,7 +87,10 @@ class chatroom_list : Fragment() {
                     }
                     else {
                         binding.warning.visibility = View.GONE
-                        binding.recycleView.adapter = ChatroomRecycleAdapter(chatroomList, key, mode)
+                        chatroomList.sortByDescending { it.lastupdate }
+
+                        binding.recycleView.adapter = ChatroomRecycleAdapter(chatroomList, mode)
+                        binding.recycleView.adapter?.notifyDataSetChanged()
                     }
                 }
             })

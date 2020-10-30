@@ -91,6 +91,8 @@ class tourist_login : Fragment() {
                     editor.putString("Mode", "T")
                     editor.apply()
 
+                    Toast.makeText(activity, "Login Success", Toast.LENGTH_LONG).show()
+
                     view?.findNavController()
                        ?.navigate(R.id.action_tourist_login_to_tourist_home)
                 }

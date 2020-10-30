@@ -1,6 +1,8 @@
 package com.example.tourrent.booking
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ class tourist_booking : Fragment() {
 
     private val args: tourist_bookingArgs by navArgs()
     var rootRef = FirebaseDatabase.getInstance().reference
+    var touristKey = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -63,15 +66,38 @@ class tourist_booking : Fragment() {
             view?.findNavController()?.navigate(action)
         }
 
+        binding.contact.setOnClickListener {
+            val action = tourist_bookingDirections.actionTouristBookingToTouristChatroom(null, touristKey)
+            view?.findNavController()?.navigate(action)
+        }
+
         binding.cancel.setOnClickListener {
-            rootRef.child("Booking").child(bkey).child("type").setValue("C")
-            Toast.makeText(activity, "Booking Cancelled", Toast.LENGTH_SHORT).show()
-            requireActivity().onBackPressed()
+            val dialogClickListener =
+                DialogInterface.OnClickListener { _, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            rootRef.child("Booking").child(bkey).child("type").setValue("C")
+                            Toast.makeText(activity, "Booking Cancelled", Toast.LENGTH_SHORT).show()
+                            requireActivity().onBackPressed()
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {
+                            Toast.makeText(activity, "Booking Not Cancelled", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setMessage("Are you sure to Cancel Booking?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show()
         }
 
         binding.edit.setOnClickListener {
             val action = tourist_bookingDirections.actionTouristBookingToEditSchedule(bkey, binding.startdate.text.toString(), binding.enddate.text.toString())
             view?.findNavController()?.navigate(action)
+        }
+
+        binding.svt.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_tourist_booking_to_createLiveStream)
         }
 
         return binding.root
@@ -91,6 +117,7 @@ class tourist_booking : Fragment() {
                             startdate.text = booking.startDate
                             textView41.text = booking.startDate
                             enddate.text = booking.endDate
+                            touristKey = booking.tourist.toString()
 
                             if(!booking.type!!.contains("V")){
                                 jvt.visibility = View.INVISIBLE
@@ -110,7 +137,7 @@ class tourist_booking : Fragment() {
                                 c.add(Calendar.DATE, 1)
                             }
 
-                            rootRef.child("Schedule").orderByChild("bookingId").equalTo(key).addListenerForSingleValueEvent(object :
+                            rootRef.child("Schedule").orderByChild("bookingId").equalTo(key).addValueEventListener(object :
                                 ValueEventListener {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     dataSnapshot.children.forEach{

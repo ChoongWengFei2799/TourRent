@@ -1,13 +1,15 @@
 package com.example.tourrent.booking
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tourrent.Dclass.Booking
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_booking_pending.*
+
 
 class booking_pending : Fragment() {
 
@@ -41,7 +44,7 @@ class booking_pending : Fragment() {
         val bkey = args.key
 
         val prefs = requireActivity().getSharedPreferences("INFO", Context.MODE_PRIVATE)
-        val mode = prefs.getString("Mode","")
+        val mode = prefs.getString("Mode", "")
 
         binding.back.setOnClickListener {
             requireActivity().onBackPressed()
@@ -53,9 +56,23 @@ class booking_pending : Fragment() {
             binding.cancel.visibility = View.VISIBLE
 
             binding.cancel.setOnClickListener {
-                rootRef.child("Booking").child(bkey).child("type").setValue("C")
-                Toast.makeText(activity, "Offer Cancelled", Toast.LENGTH_SHORT).show()
-                requireActivity().onBackPressed()
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { _, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                rootRef.child("Booking").child(bkey).child("type").setValue("C")
+                                Toast.makeText(activity, "Booking Cancelled", Toast.LENGTH_SHORT).show()
+                                requireActivity().onBackPressed()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(activity, "Booking Not Cancelled", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure to Cancel Booking?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show()
             }
         }
         else if(mode == "G"){
@@ -64,31 +81,67 @@ class booking_pending : Fragment() {
             binding.cancel.visibility = View.GONE
 
             binding.accept.setOnClickListener {
-                rootRef.child("Booking").child(bkey).addListenerForSingleValueEvent(object :
-                    ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        if(dataSnapshot.exists()) {
-                            val booking = dataSnapshot.getValue(Booking::class.java)
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { _, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                rootRef.child("Booking").child(bkey).addListenerForSingleValueEvent(object :
+                                    ValueEventListener {
+                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            val booking = dataSnapshot.getValue(Booking::class.java)
 
-                            if (booking != null) {
-                                rootRef.child("Booking").child(bkey).child("type").setValue(booking.type!!.drop(1))
-                                val action = booking_pendingDirections.actionBookingPendingToTouristBooking(bkey)
-                                view?.findNavController()?.popBackStack(R.id.booking_pending, true)
-                                view?.findNavController()?.navigate(action)
+                                            if (booking != null) {
+                                                rootRef.child("Booking").child(bkey).child("type").setValue(
+                                                    booking.type!!.dropLast(
+                                                        1
+                                                    )
+                                                )
+                                                val action =
+                                                    booking_listDirections.actionBookingListToTouristBooking(
+                                                        bkey
+                                                    )
+                                                Toast.makeText(activity, "Booking Accepted", Toast.LENGTH_SHORT).show()
+                                                view?.findNavController()?.popBackStack(R.id.booking_pending, true)
+                                                view?.findNavController()?.navigate(action)
+                                            }
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        // Failed to read value
+                                    }
+                                })
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(activity, "Booking Not Accepted", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        // Failed to read value
-                    }
-                })
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure to Accept Booking?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show()
             }
 
             binding.reject.setOnClickListener {
-                rootRef.child("Booking").child(bkey).child("type").setValue("R")
-                Toast.makeText(activity, "Offer Rejected", Toast.LENGTH_SHORT).show()
-                requireActivity().onBackPressed()
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { _, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                rootRef.child("Booking").child(bkey).child("type").setValue("R")
+                                Toast.makeText(activity, "Booking Rejected", Toast.LENGTH_SHORT).show()
+                                requireActivity().onBackPressed()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(activity, "Booking Not Rejected", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure to Reject Booking?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show()
             }
         }
 
@@ -103,68 +156,55 @@ class booking_pending : Fragment() {
         rootRef.child("Booking").child(bkey).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     val booking = dataSnapshot.getValue(Booking::class.java)
 
                     if (booking != null) {
-                        if(booking.type.toString().contains("C")){
-                            Toast.makeText(activity, "Offer Cancelled", Toast.LENGTH_LONG).show()
-                            activity!!.onBackPressed()
-                        }
-
-                        if(booking.type.toString().contains("R")){
-                            Toast.makeText(activity, "Offer Rejected", Toast.LENGTH_LONG).show()
-                            activity!!.onBackPressed()
-                        }
-
-                        if(!booking.type.toString().contains("P")){
-                            Toast.makeText(activity, "Offer Accepted", Toast.LENGTH_LONG).show()
-                            val action = booking_pendingDirections.actionBookingPendingToTouristBooking(bkey)
-                            view?.findNavController()?.popBackStack(R.id.booking_pending, true)
-                            view?.findNavController()?.navigate(action)
-                        }
-
                         startdate.text = booking.startDate
                         enddate.text = booking.endDate
                         location.text = booking.location
 
-                        if(booking.type.toString().contains("V")){
-                            switch1.isChecked
+                        if (booking.type.toString().contains("V")) {
+                            switch1.isChecked = true
                         }
 
-                        if(mode == "T"){
-                            rootRef.child("Guide").child(booking.guide.toString()).addListenerForSingleValueEvent(object :
-                                ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    if(dataSnapshot.exists()) {
-                                        val guide = dataSnapshot.getValue(Guide::class.java)
-                                        if (guide != null) {
-                                            name.text = guide.name
+                        if (mode == "T") {
+                            rootRef.child("Guide").child(booking.guide.toString())
+                                .addListenerForSingleValueEvent(
+                                    object :
+                                        ValueEventListener {
+                                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                val guide = dataSnapshot.getValue(Guide::class.java)
+                                                if (guide != null) {
+                                                    name.text = guide.name
+                                                }
+                                            }
                                         }
-                                    }
-                                }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                    // Failed to read value
-                                }
-                            })
-                        }
-                        else if(mode == "G"){
-                            rootRef.child("Profile").child(booking.tourist.toString()).addListenerForSingleValueEvent(object :
-                                ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    if(dataSnapshot.exists()) {
-                                        val prof = dataSnapshot.getValue(Profile::class.java)
-                                        if (prof != null) {
-                                            name.text = prof.name
+                                        override fun onCancelled(error: DatabaseError) {
+                                            // Failed to read value
                                         }
-                                    }
-                                }
+                                    })
+                        } else if (mode == "G") {
+                            rootRef.child("Profile").child(booking.tourist.toString())
+                                .addListenerForSingleValueEvent(
+                                    object :
+                                        ValueEventListener {
+                                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                val prof =
+                                                    dataSnapshot.getValue(Profile::class.java)
+                                                if (prof != null) {
+                                                    name.text = prof.name
+                                                }
+                                            }
+                                        }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                    // Failed to read value
-                                }
-                            })
+                                        override fun onCancelled(error: DatabaseError) {
+                                            // Failed to read value
+                                        }
+                                    })
                         }
                     }
                 }
@@ -178,7 +218,7 @@ class booking_pending : Fragment() {
         rootRef.child("Personalize").child(bkey).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     val perso = dataSnapshot.getValue(Personalize::class.java)
 
                     if (perso != null) {

@@ -1,5 +1,7 @@
 package com.example.tourrent.booking
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,27 +46,41 @@ private val key: String
         holder.loc.text = scheduleList[position].location
 
         holder.delete.setOnClickListener {
-            rootRef.child("Schedule").orderByChild("bookingId").equalTo(key).addListenerForSingleValueEvent(object :
-                ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    dataSnapshot.children.forEach{ p0->
-                        val sch = p0.getValue(Schedule::class.java)
-                        if(sch != null){
-                            if(sch.time == scheduleList[position].time && sch.date == scheduleList[position].date){
-                                p0.ref.removeValue()
-                                Toast.makeText(it.context,"Item Removed", Toast.LENGTH_SHORT).show()
+            val dialogClickListener =
+                DialogInterface.OnClickListener { _, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            rootRef.child("Schedule").orderByChild("bookingId").equalTo(key).addListenerForSingleValueEvent(object :
+                                ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    dataSnapshot.children.forEach{ p0->
+                                        val sch = p0.getValue(Schedule::class.java)
+                                        if(sch != null){
+                                            if(sch.time == scheduleList[position].time && sch.date == scheduleList[position].date){
+                                                p0.ref.removeValue()
+                                                Toast.makeText(it.context,"Schedule Removed", Toast.LENGTH_SHORT).show()
 
-                                scheduleList.remove(scheduleList[position])
-                                notifyDataSetChanged()
-                            }
+                                                scheduleList.remove(scheduleList[position])
+                                                notifyDataSetChanged()
+                                            }
+                                        }
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    // Failed to read value
+                                }
+                            })
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {
+                            Toast.makeText(it.context, "Schedule Not Removed", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    // Failed to read value
-                }
-            })
+            val builder: AlertDialog.Builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setMessage("Are you sure to Remove Schedule?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show()
         }
     }
 }

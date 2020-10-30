@@ -50,10 +50,10 @@ class tourist_guide : Fragment() {
             view?.findNavController()?.navigate(action)
         }
 
-        binding.book.setOnClickListener {
-            val prefs = requireActivity().getSharedPreferences("INFO", Context.MODE_PRIVATE)
-            val mode = prefs.getString("Mode","")
+        val prefs = requireActivity().getSharedPreferences("INFO", Context.MODE_PRIVATE)
+        val mode = prefs.getString("Mode","")
 
+        binding.book.setOnClickListener {
             if(mode != "T"){
                 Toast.makeText(activity, "Please Login To Continue", Toast.LENGTH_SHORT).show()
             }
@@ -63,6 +63,16 @@ class tourist_guide : Fragment() {
                     binding.location.text.toString()
                 )
                 it.findNavController().navigate(action)
+            }
+        }
+
+        binding.contact.setOnClickListener {
+            if(mode != "T"){
+                Toast.makeText(activity, "Please Login To Continue", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val action = tourist_guideDirections.actionTouristGuideToTouristChatroom(null ,key)
+                view?.findNavController()?.navigate(action)
             }
         }
 

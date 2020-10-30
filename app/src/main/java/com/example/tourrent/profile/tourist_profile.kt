@@ -1,10 +1,13 @@
 package com.example.tourrent.profile
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -59,14 +62,28 @@ class tourist_profile : Fragment() {
             binding.vHistory.setOnClickListener { view?.findNavController()?.navigate(R.id.action_tourist_profile_to_booking_history) }
 
             binding.logout.setOnClickListener {
-                val editor = prefs.edit()
-                editor.putString("Key", "")
-                editor.apply()
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { _, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                val editor = prefs.edit()
+                                editor.putString("Key", "")
+                                editor.apply()
 
-                editor.putString("Mode", "")
-                editor.apply()
+                                editor.putString("Mode", "")
+                                editor.apply()
 
-                view?.findNavController()?.navigate(R.id.action_tourist_profile_to_tourist_home)
+                                view?.findNavController()?.navigate(R.id.action_tourist_profile_to_tourist_home)
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(activity, "Logout Cancelled", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure to Logout?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show()
             }
         }
         else{

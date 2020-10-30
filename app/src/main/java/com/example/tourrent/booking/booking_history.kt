@@ -75,6 +75,7 @@ class booking_history : Fragment() {
                         binding.warning.visibility = View.VISIBLE
                     } else {
                         binding.warning.visibility = View.GONE
+                        binding.historyView.adapter?.notifyDataSetChanged()
                         binding.historyView.adapter = HistoryRecycleAdapter(bookingList, bookingKey)
                     }
                 }
@@ -108,6 +109,7 @@ class booking_history : Fragment() {
                         binding.warning.visibility = View.VISIBLE
                     } else {
                         binding.warning.visibility = View.GONE
+                        binding.historyView.adapter?.notifyDataSetChanged()
                         binding.historyView.adapter = HistoryRecycleAdapter(bookingList, bookingKey)
                     }
                 }

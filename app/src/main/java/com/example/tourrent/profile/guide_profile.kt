@@ -3,6 +3,7 @@ package com.example.tourrent.profile
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -156,16 +157,30 @@ class guide_profile : Fragment() {
                 view?.findNavController()?.navigate(R.id.action_guide_profile_to_booking_history)
             }
             binding.Logout.setOnClickListener {
-                val prefs = requireActivity().getSharedPreferences("INFO", Context.MODE_PRIVATE)
-                val editor = prefs.edit()
-                editor.putString("Mode", "")
-                editor.apply()
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { _, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                val prefs = requireActivity().getSharedPreferences("INFO", Context.MODE_PRIVATE)
+                                val editor = prefs.edit()
+                                editor.putString("Mode", "")
+                                editor.apply()
 
-                editor.putString("Key", "")
-                editor.apply()
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                requireActivity().startActivity(intent)
+                                editor.putString("Key", "")
+                                editor.apply()
+                                val intent = Intent(activity, MainActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                requireActivity().startActivity(intent)
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(activity, "Logout Cancelled", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure to Logout?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show()
             }
         }
         return binding.root
