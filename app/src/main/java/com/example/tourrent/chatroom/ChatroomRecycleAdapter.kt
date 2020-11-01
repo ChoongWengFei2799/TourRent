@@ -102,6 +102,8 @@ class ChatroomRecycleAdapter (
                                 if (chat != null) {
                                     if(chat.guide == chatroomList[position].guide){
                                         val chatkey = it.key
+                                        val action = chatroom_listDirections.actionChatroomListToTouristChatroom(chatkey, chatroomList[position].tourist)
+                                        holder.itemView.findNavController().navigate(action)
                                     }
                                 }
                             }

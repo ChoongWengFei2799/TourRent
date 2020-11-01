@@ -54,11 +54,9 @@ class tourist_chatroom : Fragment() {
         var chatroomkey = args.roomID
         val guidekey = args.guideID
 
-        Toast.makeText(activity, guidekey, Toast.LENGTH_SHORT).show()
-
         if (chatroomkey.isNullOrEmpty()){
             if (key != null) {
-                if(mode != null && mode == "T") {
+                if(mode == "T") {
                     rootRef.child("Chatroom").orderByChild("tourist").equalTo(key)
                         .addListenerForSingleValueEvent(
                             object :
@@ -146,7 +144,7 @@ class tourist_chatroom : Fragment() {
                                     dataSnapshot.children.forEach {
                                         val chatroomm = it.getValue(Chatroom::class.java)
                                         if (chatroomm != null) {
-                                            if (guidekey!! == chatroomm.guide) {
+                                            if (guidekey!! == chatroomm.tourist) {
                                                 chatroomkey = it.key
                                                 val chatList = ArrayList<Chat>()
                                                 val chatKey = ArrayList<String>()
