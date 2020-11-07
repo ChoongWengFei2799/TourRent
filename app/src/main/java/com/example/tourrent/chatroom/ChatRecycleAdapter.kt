@@ -1,6 +1,5 @@
 package com.example.tourrent.chatroom
 
-import android.R.attr.label
 import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tourrent.Dclass.Chat
 import com.example.tourrent.R
@@ -20,11 +18,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
 class ChatRecycleAdapter(
     private val chatList: ArrayList<Chat>,
-    private val chatKey: ArrayList<String>,
-    private val name: String
+    private val chatKey: ArrayList<String>
 ) :  RecyclerView.Adapter<ChatRecycleAdapter.ViewHolder>() {
 
     var rootRef = FirebaseDatabase.getInstance().reference
@@ -48,12 +44,18 @@ class ChatRecycleAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val prefs = holder.itemView.context.getSharedPreferences("INFO", Context.MODE_PRIVATE)
         val key = prefs.getString("Key", "")
+        val mode = prefs.getString("Mode", "")
 
         if (key == chatList[position].sender) {
             holder.name.text = "You"
         }
         else{
-            holder.name.text = name
+            if(mode == "T") {
+                holder.name.text = "Tour Guide"
+            }
+            else{
+                holder.name.text = "Tourist"
+            }
         }
 
         holder.ctext.text = chatList[position].text
@@ -89,7 +91,8 @@ class ChatRecycleAdapter(
                             ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
                                 dataSnapshot.ref.removeValue()
-                                Toast.makeText(view.context, "Message Removed", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(view.context, "Message Removed", Toast.LENGTH_SHORT)
+                                    .show()
                             }
 
                             override fun onCancelled(error: DatabaseError) {
@@ -98,13 +101,15 @@ class ChatRecycleAdapter(
                         })
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
-                        Toast.makeText(view.context, "Message Not Removed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(view.context, "Message Not Removed", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
-        builder.setMessage("Are you sure to Remove Message Sent?").setPositiveButton("Yes", dialogClickListener
+        builder.setMessage("Are you sure to Remove Message Sent?").setPositiveButton(
+            "Yes", dialogClickListener
         ).setNegativeButton("No", dialogClickListener).show()
     }
 

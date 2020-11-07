@@ -30,6 +30,7 @@ class tourist_booking : Fragment() {
     private val args: tourist_bookingArgs by navArgs()
     var rootRef = FirebaseDatabase.getInstance().reference
     var touristKey = ""
+    var guideKey = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -67,8 +68,20 @@ class tourist_booking : Fragment() {
         }
 
         binding.contact.setOnClickListener {
-            val action = tourist_bookingDirections.actionTouristBookingToTouristChatroom(null, touristKey)
-            view?.findNavController()?.navigate(action)
+            if(mode == "T") {
+                val action = tourist_bookingDirections.actionTouristBookingToTouristChatroom(
+                    null,
+                    guideKey
+                )
+                view?.findNavController()?.navigate(action)
+            }
+            else{
+                val action = tourist_bookingDirections.actionTouristBookingToTouristChatroom(
+                    null,
+                    touristKey
+                )
+                view?.findNavController()?.navigate(action)
+            }
         }
 
         binding.cancel.setOnClickListener {
@@ -100,6 +113,10 @@ class tourist_booking : Fragment() {
             view?.findNavController()?.navigate(R.id.action_tourist_booking_to_createLiveStream)
         }
 
+        binding.jvt.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_tourist_booking_to_joinLiveStream)
+        }
+
         return binding.root
     }
 
@@ -118,6 +135,7 @@ class tourist_booking : Fragment() {
                             textView41.text = booking.startDate
                             enddate.text = booking.endDate
                             touristKey = booking.tourist.toString()
+                            guideKey = booking.guide.toString()
 
                             if(!booking.type!!.contains("V")){
                                 jvt.visibility = View.INVISIBLE

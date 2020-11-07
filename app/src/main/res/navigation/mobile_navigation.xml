@@ -282,6 +282,9 @@
         <action
             android:id="@+id/action_tourist_booking_to_createLiveStream"
             app:destination="@id/createLiveStream" />
+        <action
+            android:id="@+id/action_tourist_booking_to_joinLiveStream"
+            app:destination="@id/joinLiveStream" />
     </fragment>
     <fragment
         android:id="@+id/edit_schedule"
@@ -347,6 +350,10 @@
     </fragment>
     <fragment
         android:id="@+id/createLiveStream"
-        android:name="com.example.tourrent.LiveStream.CreateLiveStream"
+        android:name="com.example.tourrent.liveStream.CreateLiveStream"
         android:label="CreateLiveStream" />
+    <fragment
+        android:id="@+id/joinLiveStream"
+        android:name="com.example.tourrent.liveStream.JoinLiveStream"
+        android:label="JoinLiveStream" />
 </navigation>

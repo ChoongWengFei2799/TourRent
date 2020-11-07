@@ -72,8 +72,7 @@ class tourist_chatroom : Fragment() {
 
                                                 binding.chatview.adapter = ChatRecycleAdapter(
                                                     chatList,
-                                                    chatKey,
-                                                    binding.oppositename.text.toString()
+                                                    chatKey
                                                 )
 
                                                 rootRef.child("Chat").orderByChild("chatroom")
@@ -151,8 +150,7 @@ class tourist_chatroom : Fragment() {
 
                                                 binding.chatview.adapter = ChatRecycleAdapter(
                                                     chatList,
-                                                    chatKey,
-                                                    binding.oppositename.text.toString()
+                                                    chatKey
                                                 )
 
                                                 rootRef.child("Chat").orderByChild("chatroom")
@@ -262,7 +260,7 @@ class tourist_chatroom : Fragment() {
             val chatList = ArrayList<Chat>()
             val chatKey = ArrayList<String>()
 
-            binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey, binding.oppositename.text.toString())
+            binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey)
 
             rootRef.child("Chat").orderByChild("chatroom").equalTo(chatroomkey).addChildEventListener(
                 object : ChildEventListener {
@@ -327,7 +325,7 @@ class tourist_chatroom : Fragment() {
                     val chatList = ArrayList<Chat>()
                     val chatKey = ArrayList<String>()
 
-                    binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey, binding.oppositename.text.toString())
+                    binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey)
 
                     rootRef.child("Chat").orderByChild("chatroom").equalTo(chatroomkey).addChildEventListener(
                         object : ChildEventListener {
