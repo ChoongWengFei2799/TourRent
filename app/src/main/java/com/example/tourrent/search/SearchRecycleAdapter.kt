@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class SearchRecycleAdapter(
         val name: TextView = itemView.findViewById(R.id.Name)
         val location: TextView = itemView.findViewById(R.id.location)
         val price: TextView = itemView.findViewById(R.id.price)
+        val loading: ProgressBar = itemView.findViewById(R.id.loading)
         val pic: ImageView = itemView.findViewById(R.id.pic)
     }
 
@@ -42,6 +44,7 @@ class SearchRecycleAdapter(
         val storageRef = FirebaseStorage.getInstance().reference
         storageRef.child(key[position]).downloadUrl.addOnSuccessListener {
                 Glide.with(holder.itemView.context).load(it).into(holder.pic)
+            holder.loading.visibility = View.GONE
         }
 
         holder.itemView.setOnClickListener {

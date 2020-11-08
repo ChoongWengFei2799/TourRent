@@ -18,6 +18,7 @@ import com.example.tourrent.Dclass.Profile
 import com.example.tourrent.R
 import com.example.tourrent.databinding.FragmentTouristChatroomBinding
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_home_page.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -54,213 +55,249 @@ class tourist_chatroom : Fragment() {
         var chatroomkey = args.roomID
         val guidekey = args.guideID
 
-        if (chatroomkey.isNullOrEmpty()){
-            if (key != null) {
-                if(mode == "T") {
-                    rootRef.child("Chatroom").orderByChild("tourist").equalTo(key)
-                        .addListenerForSingleValueEvent(
-                            object :
-                                ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    dataSnapshot.children.forEach {
-                                        val chatroomm = it.getValue(Chatroom::class.java)
-                                        if (chatroomm != null) {
-                                            if (guidekey!! == chatroomm.guide) {
-                                                chatroomkey = it.key
-                                                val chatList = ArrayList<Chat>()
-                                                val chatKey = ArrayList<String>()
-
-                                                binding.chatview.adapter = ChatRecycleAdapter(
-                                                    chatList,
-                                                    chatKey
-                                                )
-
-                                                rootRef.child("Chat").orderByChild("chatroom")
-                                                    .equalTo(chatroomkey).addChildEventListener(
-                                                    object : ChildEventListener {
-                                                        override fun onChildAdded(
-                                                            dataSnapshot: DataSnapshot,
-                                                            previousChildName: String?
-                                                        ) {
-                                                            val newChat =
-                                                                dataSnapshot.getValue(Chat::class.java)
-
-                                                            if (newChat != null) {
-                                                                chatList.add(newChat)
-                                                                chatKey.add(dataSnapshot.key!!)
-                                                                binding.chatview.adapter?.notifyDataSetChanged()
-                                                                binding.chatview.scrollToPosition(
-                                                                    binding.chatview.adapter?.itemCount?.minus(
-                                                                        1
-                                                                    )!!
-                                                                )
-                                                            }
-                                                        }
-
-                                                        override fun onChildChanged(
-                                                            snapshot: DataSnapshot,
-                                                            previousChildName: String?
-                                                        ) {
-                                                            TODO("Not yet implemented")
-                                                        }
-
-                                                        override fun onChildRemoved(snapshot: DataSnapshot) {
-                                                            val skey: String = snapshot.key!!
-                                                            val index: Int = chatKey.indexOf(skey)
-
-                                                            chatList.removeAt(index)
-                                                            chatKey.removeAt(index)
-                                                            binding.chatview.adapter?.notifyDataSetChanged()
-                                                        }
-
-                                                        override fun onChildMoved(
-                                                            snapshot: DataSnapshot,
-                                                            previousChildName: String?
-                                                        ) {
-                                                            TODO("Not yet implemented")
-                                                        }
-
-                                                        override fun onCancelled(error: DatabaseError) {
-                                                            TODO("Not yet implemented")
-                                                        }
-                                                    })
-                                            }
-                                        }
-                                    }
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    // Failed to read value
-                                }
-                            })
-                }
-                else{
-                    rootRef.child("Chatroom").orderByChild("Guide").equalTo(key)
-                        .addListenerForSingleValueEvent(
-                            object :
-                                ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    dataSnapshot.children.forEach {
-                                        val chatroomm = it.getValue(Chatroom::class.java)
-                                        if (chatroomm != null) {
-                                            if (guidekey!! == chatroomm.tourist) {
-                                                chatroomkey = it.key
-                                                val chatList = ArrayList<Chat>()
-                                                val chatKey = ArrayList<String>()
-
-                                                binding.chatview.adapter = ChatRecycleAdapter(
-                                                    chatList,
-                                                    chatKey
-                                                )
-
-                                                rootRef.child("Chat").orderByChild("chatroom")
-                                                    .equalTo(chatroomkey).addChildEventListener(
-                                                        object : ChildEventListener {
-                                                            override fun onChildAdded(
-                                                                dataSnapshot: DataSnapshot,
-                                                                previousChildName: String?
-                                                            ) {
-                                                                val newChat =
-                                                                    dataSnapshot.getValue(Chat::class.java)
-
-                                                                if (newChat != null) {
-                                                                    chatList.add(newChat)
-                                                                    chatKey.add(dataSnapshot.key!!)
-                                                                    binding.chatview.adapter?.notifyDataSetChanged()
-                                                                    binding.chatview.scrollToPosition(
-                                                                        binding.chatview.adapter?.itemCount?.minus(
-                                                                            1
-                                                                        )!!
-                                                                    )
-                                                                }
-                                                            }
-
-                                                            override fun onChildChanged(
-                                                                snapshot: DataSnapshot,
-                                                                previousChildName: String?
-                                                            ) {
-                                                                TODO("Not yet implemented")
-                                                            }
-
-                                                            override fun onChildRemoved(snapshot: DataSnapshot) {
-                                                                val skey: String = snapshot.key!!
-                                                                val index: Int = chatKey.indexOf(skey)
-
-                                                                chatList.removeAt(index)
-                                                                chatKey.removeAt(index)
-                                                                binding.chatview.adapter?.notifyDataSetChanged()
-                                                            }
-
-                                                            override fun onChildMoved(
-                                                                snapshot: DataSnapshot,
-                                                                previousChildName: String?
-                                                            ) {
-                                                                TODO("Not yet implemented")
-                                                            }
-
-                                                            override fun onCancelled(error: DatabaseError) {
-                                                                TODO("Not yet implemented")
-                                                            }
-                                                        })
-                                            }
-                                        }
-                                    }
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    // Failed to read value
-                                }
-                            })
-                }
-            }
-        }
-
         if (guidekey != null) {
             if(mode == "T") {
-                rootRef.child("Guide").child(guidekey)
-                    .addListenerForSingleValueEvent(object :
-                        ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                val guide =
-                                    dataSnapshot.getValue(Guide::class.java)
-                                if (guide != null) {
-                                    binding.oppositename.text = guide.name
+                rootRef.child("Chatroom").orderByChild("tourist").equalTo(key)
+                    .addListenerForSingleValueEvent(
+                        object :
+                            ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                dataSnapshot.children.forEach {
+                                    val chatroomm = it.getValue(Chatroom::class.java)
+                                    if (chatroomm != null) {
+                                        if (guidekey!! == chatroomm.guide) {
+                                            chatroomkey = it.key
+
+                                            val chatList = ArrayList<Chat>()
+                                            val chatKey = ArrayList<String>()
+
+                                            rootRef.child("Guide").child(guidekey)
+                                                .addListenerForSingleValueEvent(object :
+                                                    ValueEventListener {
+                                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                                        if (dataSnapshot.exists()) {
+                                                            val guide =
+                                                                dataSnapshot.getValue(Guide::class.java)
+                                                            if (guide != null) {
+                                                                binding.oppositename.text =
+                                                                    guide.name
+
+                                                                binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey, guide.name.toString())
+                                                            }
+                                                        }
+                                                    }
+
+                                                    override fun onCancelled(error: DatabaseError) {
+                                                        // Failed to read value
+                                                    }
+                                                })
+
+                                            rootRef.child("Chat").orderByChild("chatroom").equalTo(chatroomkey).addChildEventListener(
+                                                object : ChildEventListener {
+                                                    override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+                                                        val newChat = dataSnapshot.getValue(Chat::class.java)
+
+                                                        if (newChat != null) {
+                                                            chatList.add(newChat)
+                                                            chatKey.add(dataSnapshot.key!!)
+                                                            binding.chatview.adapter?.notifyDataSetChanged()
+                                                        }
+                                                    }
+
+                                                    override fun onChildChanged(
+                                                        snapshot: DataSnapshot,
+                                                        previousChildName: String?
+                                                    ) {
+                                                        TODO("Not yet implemented")
+                                                    }
+
+                                                    override fun onChildRemoved(snapshot: DataSnapshot) {
+                                                        val skey: String = snapshot.key!!
+                                                        val index: Int = chatKey.indexOf(skey)
+
+                                                        chatList.removeAt(index)
+                                                        chatKey.removeAt(index)
+                                                        binding.chatview.adapter?.notifyDataSetChanged()
+                                                    }
+
+                                                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                                                        TODO("Not yet implemented")
+                                                    }
+
+                                                    override fun onCancelled(error: DatabaseError) {
+                                                        TODO("Not yet implemented")
+                                                    }
+                                                })
+                                        }
+                                    }
                                 }
                             }
-                        }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            // Failed to read value
-                        }
-                    })
+                            override fun onCancelled(error: DatabaseError) {
+                                // Failed to read value
+                            }
+                        })
             }
             else{
-                rootRef.child("Profile").child(guidekey)
-                    .addListenerForSingleValueEvent(object :
-                        ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                val prof =
-                                    dataSnapshot.getValue(Profile::class.java)
-                                if (prof != null) {
-                                    binding.oppositename.text = prof.name
+                rootRef.child("Chatroom").orderByChild("Guide").equalTo(key)
+                    .addListenerForSingleValueEvent(
+                        object :
+                            ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                dataSnapshot.children.forEach {
+                                    val chatroomm = it.getValue(Chatroom::class.java)
+                                    if (chatroomm != null) {
+                                        if (guidekey == chatroomm.tourist) {
+                                            chatroomkey = it.key
+
+                                            val chatList = ArrayList<Chat>()
+                                            val chatKey = ArrayList<String>()
+
+                                            rootRef.child("Profile").child(guidekey)
+                                                .addListenerForSingleValueEvent(object :
+                                                    ValueEventListener {
+                                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                                        if (dataSnapshot.exists()) {
+                                                            val prof =
+                                                                dataSnapshot.getValue(Profile::class.java)
+                                                            if (prof != null) {
+                                                                binding.oppositename.text =
+                                                                    prof.name
+
+                                                                binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey, prof.name.toString())
+                                                            }
+                                                        }
+                                                    }
+
+                                                    override fun onCancelled(error: DatabaseError) {
+                                                        // Failed to read value
+                                                    }
+                                                })
+
+                                            rootRef.child("Chat").orderByChild("chatroom").equalTo(chatroomkey).addChildEventListener(
+                                                object : ChildEventListener {
+                                                    override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+                                                        val newChat = dataSnapshot.getValue(Chat::class.java)
+
+                                                        if (newChat != null) {
+                                                            chatList.add(newChat)
+                                                            chatKey.add(dataSnapshot.key!!)
+                                                            binding.chatview.adapter?.notifyDataSetChanged()
+                                                            binding.chatview.scrollToPosition(binding.chatview.adapter?.itemCount?.minus(1)!!)
+                                                        }
+                                                    }
+
+                                                    override fun onChildChanged(
+                                                        snapshot: DataSnapshot,
+                                                        previousChildName: String?
+                                                    ) {
+                                                        TODO("Not yet implemented")
+                                                    }
+
+                                                    override fun onChildRemoved(snapshot: DataSnapshot) {
+                                                        val skey: String = snapshot.key!!
+                                                        val index: Int = chatKey.indexOf(skey)
+
+                                                        chatList.removeAt(index)
+                                                        chatKey.removeAt(index)
+                                                        binding.chatview.adapter?.notifyDataSetChanged()
+                                                    }
+
+                                                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                                                        TODO("Not yet implemented")
+                                                    }
+
+                                                    override fun onCancelled(error: DatabaseError) {
+                                                        TODO("Not yet implemented")
+                                                    }
+                                                })
+                                        }
+                                    }
                                 }
                             }
-                        }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            // Failed to read value
-                        }
-                    })
+                            override fun onCancelled(error: DatabaseError) {
+                                // Failed to read value
+                            }
+                        })
             }
         }
 
-        if (!chatroomkey.isNullOrEmpty()){
+        if (chatroomkey != null){
             val chatList = ArrayList<Chat>()
             val chatKey = ArrayList<String>()
 
-            binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey)
+            rootRef.child("Chatroom").child(chatroomkey!!)
+                .addListenerForSingleValueEvent(object :
+                    ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            val chatr = dataSnapshot.getValue(Chatroom::class.java)
+                            if (chatr != null) {
+                                if(mode == "T") {
+                                    rootRef.child("Guide").child(chatr.guide!!)
+                                        .addListenerForSingleValueEvent(object :
+                                            ValueEventListener {
+                                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                                if (dataSnapshot.exists()) {
+                                                    val guide =
+                                                        dataSnapshot.getValue(Guide::class.java)
+                                                    if (guide != null) {
+                                                        binding.oppositename.text =
+                                                            guide.name
+
+                                                        binding.chatview.adapter =
+                                                            ChatRecycleAdapter(
+                                                                chatList,
+                                                                chatKey,
+                                                                guide.name.toString()
+                                                            )
+                                                    }
+                                                }
+                                            }
+
+                                            override fun onCancelled(error: DatabaseError) {
+                                                // Failed to read value
+                                            }
+                                        })
+                                }
+                                else{
+                                    rootRef.child("Profile").child(chatr.tourist!!)
+                                        .addListenerForSingleValueEvent(object :
+                                            ValueEventListener {
+                                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                                if (dataSnapshot.exists()) {
+                                                    val prof =
+                                                        dataSnapshot.getValue(Profile::class.java)
+                                                    if (prof != null) {
+                                                        binding.oppositename.text =
+                                                            prof.name
+
+                                                        binding.chatview.adapter =
+                                                            ChatRecycleAdapter(
+                                                                chatList,
+                                                                chatKey,
+                                                                prof.name.toString()
+                                                            )
+                                                    }
+                                                }
+                                            }
+
+                                            override fun onCancelled(error: DatabaseError) {
+                                                // Failed to read value
+                                            }
+                                        })
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Failed to read value
+                    }
+                })
+
+            binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey, binding.oppositename.text.toString())
 
             rootRef.child("Chat").orderByChild("chatroom").equalTo(chatroomkey).addChildEventListener(
                 object : ChildEventListener {
@@ -325,7 +362,7 @@ class tourist_chatroom : Fragment() {
                     val chatList = ArrayList<Chat>()
                     val chatKey = ArrayList<String>()
 
-                    binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey)
+                    binding.chatview.adapter = ChatRecycleAdapter(chatList, chatKey, binding.oppositename.text.toString())
 
                     rootRef.child("Chat").orderByChild("chatroom").equalTo(chatroomkey).addChildEventListener(
                         object : ChildEventListener {

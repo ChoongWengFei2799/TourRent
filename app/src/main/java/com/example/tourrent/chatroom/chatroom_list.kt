@@ -54,12 +54,14 @@ class chatroom_list : Fragment() {
                     }
 
                     if(chatroomList.isNullOrEmpty()){
+                        binding.loading.visibility = View.GONE
                         binding.warning.visibility = View.VISIBLE
                     }
                     else {
                         binding.warning.visibility = View.GONE
                         chatroomList.sortByDescending { it.lastupdate }
 
+                        binding.loading.visibility = View.GONE
                         binding.recycleView.adapter = ChatroomRecycleAdapter(chatroomList, mode)
                         binding.recycleView.adapter?.notifyDataSetChanged()
                     }
@@ -83,12 +85,14 @@ class chatroom_list : Fragment() {
                     }
 
                     if(chatroomList.isNullOrEmpty()){
+                        binding.loading.visibility = View.GONE
                         binding.warning.visibility = View.VISIBLE
                     }
                     else {
                         binding.warning.visibility = View.GONE
                         chatroomList.sortByDescending { it.lastupdate }
 
+                        binding.loading.visibility = View.GONE
                         binding.recycleView.adapter = ChatroomRecycleAdapter(chatroomList, mode)
                         binding.recycleView.adapter?.notifyDataSetChanged()
                     }
@@ -96,6 +100,7 @@ class chatroom_list : Fragment() {
             })
         }
         else{
+            binding.loading.visibility = View.GONE
             binding.warning.visibility = View.VISIBLE
             binding.textView37.visibility = View.VISIBLE
         }

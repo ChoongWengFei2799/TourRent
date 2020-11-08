@@ -85,6 +85,7 @@ class booking_list : Fragment() {
                     }
 
                     if (bookingList.isNullOrEmpty() && pendingList.isNullOrEmpty()) {
+                        binding.loading.visibility = View.GONE
                         binding.warning.visibility = View.VISIBLE
                     } else {
                         binding.warning.visibility = View.GONE
@@ -92,8 +93,9 @@ class booking_list : Fragment() {
                         binding.pending.adapter = BookingRecycleAdapter(pendingList, pendingKey)
                         binding.ongoing.adapter = BookingRecycleAdapter(bookingList, bookingKey)
 
-                        (binding.pending.adapter as BookingRecycleAdapter).notifyDataSetChanged()
-                        (binding.ongoing.adapter as BookingRecycleAdapter).notifyDataSetChanged()
+                        binding.loading.visibility = View.GONE
+                        binding.pending.adapter?.notifyDataSetChanged()
+                        binding.ongoing.adapter?.notifyDataSetChanged()
                     }
                 }
             })
@@ -137,6 +139,7 @@ class booking_list : Fragment() {
                     }
 
                     if (bookingList.isNullOrEmpty() && pendingList.isNullOrEmpty()) {
+                        binding.loading.visibility = View.GONE
                         binding.warning.visibility = View.VISIBLE
                     } else {
                         binding.warning.visibility = View.GONE
@@ -144,13 +147,15 @@ class booking_list : Fragment() {
                         binding.pending.adapter = BookingRecycleAdapter(pendingList, pendingKey)
                         binding.ongoing.adapter = BookingRecycleAdapter(bookingList, bookingKey)
 
-                        (binding.pending.adapter as BookingRecycleAdapter).notifyDataSetChanged()
-                        (binding.ongoing.adapter as BookingRecycleAdapter).notifyDataSetChanged()
+                        binding.loading.visibility = View.GONE
+                        binding.pending.adapter?.notifyDataSetChanged()
+                        binding.ongoing.adapter?.notifyDataSetChanged()
                     }
                 }
             })
         }
         else{
+            binding.loading.visibility = View.GONE
             binding.warning.visibility = View.VISIBLE
             binding.textView37.visibility = View.VISIBLE
         }

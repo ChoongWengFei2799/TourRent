@@ -68,9 +68,11 @@ class search_list : Fragment() {
 
                     if(guideList.isNullOrEmpty()){
                         binding.warning.visibility = View.VISIBLE
+                        binding.loading.visibility = View.GONE
                     }
                     else {
                         binding.warning.visibility = View.GONE
+                        binding.loading.visibility = View.GONE
                         binding.recyclerView.adapter = SearchRecycleAdapter(guideList, key)
                     }
                 }
@@ -101,9 +103,11 @@ class search_list : Fragment() {
 
                     if(guideList.isNullOrEmpty()){
                         binding.warning.visibility = View.VISIBLE
+                        binding.loading.visibility = View.GONE
                     }
                     else {
                         binding.warning.visibility = View.GONE
+                        binding.loading.visibility = View.GONE
                         binding.recyclerView.adapter = SearchRecycleAdapter(guideList, key)
                     }
                 }

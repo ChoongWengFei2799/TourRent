@@ -20,7 +20,8 @@ import com.google.firebase.database.ValueEventListener
 
 class ChatRecycleAdapter(
     private val chatList: ArrayList<Chat>,
-    private val chatKey: ArrayList<String>
+    private val chatKey: ArrayList<String>,
+    private val oName: String
 ) :  RecyclerView.Adapter<ChatRecycleAdapter.ViewHolder>() {
 
     var rootRef = FirebaseDatabase.getInstance().reference
@@ -44,18 +45,12 @@ class ChatRecycleAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val prefs = holder.itemView.context.getSharedPreferences("INFO", Context.MODE_PRIVATE)
         val key = prefs.getString("Key", "")
-        val mode = prefs.getString("Mode", "")
 
         if (key == chatList[position].sender) {
             holder.name.text = "You"
         }
         else{
-            if(mode == "T") {
-                holder.name.text = "Tour Guide"
-            }
-            else{
-                holder.name.text = "Tourist"
-            }
+            holder.name.text = oName
         }
 
         holder.ctext.text = chatList[position].text

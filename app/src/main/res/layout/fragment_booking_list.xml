@@ -8,6 +8,13 @@
         android:layout_height="match_parent"
         tools:context=".booking.booking_list">
 
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+            app:layout_constraintTop_toTopOf="@+id/nestedScrollView" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
@@ -32,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
                     android:paddingBottom="90dp" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
