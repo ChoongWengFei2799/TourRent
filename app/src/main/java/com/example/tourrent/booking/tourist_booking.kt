@@ -85,23 +85,31 @@ class tourist_booking : Fragment() {
         }
 
         binding.cancel.setOnClickListener {
-            val dialogClickListener =
-                DialogInterface.OnClickListener { _, which ->
-                    when (which) {
-                        DialogInterface.BUTTON_POSITIVE -> {
-                            rootRef.child("Booking").child(bkey).child("type").setValue("C")
-                            Toast.makeText(activity, "Booking Cancelled", Toast.LENGTH_SHORT).show()
-                            requireActivity().onBackPressed()
-                        }
-                        DialogInterface.BUTTON_NEGATIVE -> {
-                            Toast.makeText(activity, "Booking Not Cancelled", Toast.LENGTH_SHORT).show()
+            val format = SimpleDateFormat("dd/MM/yyyy")
+            val date = format.parse(format.format(Date()))
+
+            if (format.parse(binding.startdate.text.toString()).after(date) || date.toString() == binding.startdate.text.toString()) {
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { _, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                rootRef.child("Booking").child(bkey).child("type").setValue("C")
+                                Toast.makeText(activity, "Booking Cancelled", Toast.LENGTH_SHORT).show()
+                                requireActivity().onBackPressed()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                                Toast.makeText(activity, "Booking Not Cancelled", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
-                }
 
-            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-            builder.setMessage("Are you sure to Cancel Booking?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show()
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure to Cancel Booking?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show()
+            }
+            else{
+                Toast.makeText(activity, "Booking Cannot Be Cancelled", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.edit.setOnClickListener {
