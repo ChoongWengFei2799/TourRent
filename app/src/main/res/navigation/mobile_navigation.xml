@@ -10,7 +10,11 @@
         android:label="tourist_home" >
         <action
             android:id="@+id/action_tourist_home_to_tourist_search"
-            app:destination="@id/tourist_search" />
+            app:destination="@id/tourist_search"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/HomePage"
@@ -18,19 +22,39 @@
         android:label="HomePage" >
         <action
             android:id="@+id/action_homePage_to_tourist_login"
-            app:destination="@id/tourist_login" />
+            app:destination="@id/tourist_login"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_homePage_to_tourist_register"
-            app:destination="@id/tourist_register" />
+            app:destination="@id/tourist_register"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_homePage_to_guide_login"
-            app:destination="@id/guide_login" />
+            app:destination="@id/guide_login"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_homePage_to_guide_register"
-            app:destination="@id/guide_register" />
+            app:destination="@id/guide_register"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_homePage_to_tourist_profile"
-            app:destination="@id/tourist_profile" />
+            app:destination="@id/tourist_profile"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_login"
@@ -39,16 +63,32 @@
         tools:layout="@layout/fragment_guide_login" >
         <action
             android:id="@+id/action_guide_login_to_guide_recover"
-            app:destination="@id/guide_recover" />
+            app:destination="@id/guide_recover"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_login_to_guide_setup1"
-            app:destination="@id/guide_setup1" />
+            app:destination="@id/guide_setup1"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_login_to_guide_setup2"
-            app:destination="@id/guide_setup2" />
+            app:destination="@id/guide_setup2"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_login_to_guide_setup3"
-            app:destination="@id/guide_setup3" />
+            app:destination="@id/guide_setup3"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_setup2"
@@ -57,13 +97,25 @@
         tools:layout="@layout/fragment_guide_setup2" >
         <action
             android:id="@+id/action_guide_setup2_to_guide_setup3"
-            app:destination="@id/guide_setup3" />
+            app:destination="@id/guide_setup3"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_guide_setup2_to_guide_edit_language"
-            app:destination="@id/guide_edit_language" />
+            app:destination="@id/guide_edit_language"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_setup2_to_guide_edit_tags"
-            app:destination="@id/guide_edit_tags" />
+            app:destination="@id/guide_edit_tags"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_register"
@@ -72,7 +124,11 @@
         tools:layout="@layout/fragment_guide_register" >
         <action
             android:id="@+id/action_guide_register_to_guide_setup1"
-            app:destination="@id/guide_setup1" />
+            app:destination="@id/guide_setup1"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_setup1"
@@ -81,7 +137,11 @@
         tools:layout="@layout/fragment_guide_setup1" >
         <action
             android:id="@+id/action_guide_setup1_to_guide_setup2"
-            app:destination="@id/guide_setup2" />
+            app:destination="@id/guide_setup2"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/guide_setup3"
@@ -95,10 +155,18 @@
         tools:layout="@layout/fragment_tourist_login" >
         <action
             android:id="@+id/action_tourist_login_to_tourist_recover"
-            app:destination="@id/tourist_recover" />
+            app:destination="@id/tourist_recover"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_login_to_tourist_home"
-            app:destination="@id/tourist_home" />
+            app:destination="@id/tourist_home"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/tourist_register"
@@ -107,7 +175,11 @@
         tools:layout="@layout/fragment_tourist_register" >
         <action
             android:id="@+id/action_tourist_register_to_tourist_login"
-            app:destination="@id/tourist_login" />
+            app:destination="@id/tourist_login"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_recover"
@@ -116,7 +188,11 @@
         tools:layout="@layout/fragment_guide_recover" >
         <action
             android:id="@+id/action_guide_recover_to_homePage"
-            app:destination="@id/HomePage" />
+            app:destination="@id/HomePage"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/tourist_recover"
@@ -125,7 +201,11 @@
         tools:layout="@layout/fragment_tourist_recover">
         <action
             android:id="@+id/action_tourist_recover_to_homePage"
-            app:destination="@id/HomePage" />
+            app:destination="@id/HomePage"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_edit_language"
@@ -143,16 +223,32 @@
         android:label="tourist_profile" >
         <action
             android:id="@+id/action_tourist_profile_to_tourist_edit_password"
-            app:destination="@id/tourist_edit_password" />
+            app:destination="@id/tourist_edit_password"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_profile_to_HomePage"
-            app:destination="@id/HomePage" />
+            app:destination="@id/HomePage"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_profile_to_tourist_home"
-            app:destination="@id/tourist_home" />
+            app:destination="@id/tourist_home"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_profile_to_booking_history"
-            app:destination="@id/booking_history" />
+            app:destination="@id/booking_history"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/tourist_edit_password"
@@ -160,7 +256,11 @@
         android:label="tourist_edit_password" >
         <action
             android:id="@+id/action_tourist_edit_password_to_tourist_profile"
-            app:destination="@id/tourist_profile" />
+            app:destination="@id/tourist_profile"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_profile"
@@ -168,16 +268,32 @@
         android:label="guide_profile" >
         <action
             android:id="@+id/action_guide_profile_to_guide_edit_tags"
-            app:destination="@id/guide_edit_tags" />
+            app:destination="@id/guide_edit_tags"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_profile_to_guide_edit_language"
-            app:destination="@id/guide_edit_language" />
+            app:destination="@id/guide_edit_language"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_profile_to_tourist_edit_password"
-            app:destination="@id/tourist_edit_password" />
+            app:destination="@id/tourist_edit_password"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_guide_profile_to_booking_history"
-            app:destination="@id/booking_history" />
+            app:destination="@id/booking_history"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/tourist_search"
@@ -185,7 +301,11 @@
         android:label="tourist_search" >
         <action
             android:id="@+id/action_tourist_search_to_search_list"
-            app:destination="@id/search_list" />
+            app:destination="@id/search_list"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/search_list"
@@ -201,7 +321,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_search_list_to_tourist_guide"
-            app:destination="@id/tourist_guide" />
+            app:destination="@id/tourist_guide"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/tourist_guide"
@@ -211,13 +335,25 @@
             app:argType="string" />
         <action
             android:id="@+id/action_tourist_guide_to_tour_personalise"
-            app:destination="@id/tour_personalise" />
+            app:destination="@id/tour_personalise"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_guide_to_guide_review"
-            app:destination="@id/guide_review" />
+            app:destination="@id/guide_review"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_guide_to_tourist_chatroom"
-            app:destination="@id/tourist_chatroom" />
+            app:destination="@id/tourist_chatroom"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/chatroom_list"
@@ -225,7 +361,11 @@
         android:label="chatroom_list" >
         <action
             android:id="@+id/action_chatroom_list_to_tourist_chatroom"
-            app:destination="@id/tourist_chatroom" />
+            app:destination="@id/tourist_chatroom"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/tour_personalise"
@@ -239,7 +379,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_tour_personalise_to_booking_list"
-            app:destination="@id/booking_list" />
+            app:destination="@id/booking_list"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/booking_list"
@@ -247,10 +391,18 @@
         android:label="booking_list" >
         <action
             android:id="@+id/action_booking_list_to_booking_pending"
-            app:destination="@id/booking_pending" />
+            app:destination="@id/booking_pending"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit"/>
         <action
             android:id="@+id/action_booking_list_to_tourist_booking"
-            app:destination="@id/tourist_booking" />
+            app:destination="@id/tourist_booking"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/booking_pending"
@@ -269,22 +421,46 @@
             app:argType="string" />
         <action
             android:id="@+id/action_tourist_booking_to_booking_list"
-            app:destination="@id/booking_list" />
+            app:destination="@id/booking_list"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_booking_to_edit_schedule"
-            app:destination="@id/edit_schedule" />
+            app:destination="@id/edit_schedule"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_booking_to_tour_remarks"
-            app:destination="@id/tour_remarks" />
+            app:destination="@id/tour_remarks"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_booking_to_tourist_chatroom"
-            app:destination="@id/tourist_chatroom" />
+            app:destination="@id/tourist_chatroom"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_booking_to_createLiveStream"
-            app:destination="@id/createLiveStream" />
+            app:destination="@id/createLiveStream"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_tourist_booking_to_joinLiveStream"
-            app:destination="@id/joinLiveStream" />
+            app:destination="@id/joinLiveStream"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/edit_schedule"
@@ -313,7 +489,11 @@
         android:label="booking_history" >
         <action
             android:id="@+id/action_booking_history_to_history2"
-            app:destination="@id/history" />
+            app:destination="@id/history"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/history"
@@ -325,7 +505,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_history_to_guide_review"
-            app:destination="@id/guide_review" />
+            app:destination="@id/guide_review"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/guide_review"

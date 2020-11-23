@@ -57,11 +57,11 @@ class ChatRecycleAdapter(
         holder.time.text = chatList[position].time
 
         holder.itemView.setOnLongClickListener {
-            onLongClick(it, chatList[position].text.toString(), chatKey[position])
+            onLongClick(it, chatList[position].text.toString(), chatKey[position], chatList[position].sender.toString())
         }
     }
 
-    private fun onLongClick(view: View, clipText: String, chatID: String): Boolean {
+    private fun onLongClick(view: View, clipText: String, chatID: String, sender: String): Boolean {
         val b: AlertDialog.Builder = AlertDialog.Builder(view.context)
         b.setTitle("Additional Activity")
         val location = arrayOf("Copy to Clipboard", "Delete")
@@ -69,7 +69,7 @@ class ChatRecycleAdapter(
             dialog.dismiss()
             when (which) {
                 0 -> copyClip(view, clipText)
-                1 -> removeText(view, chatID)
+                1 -> removeText(view, chatID, sender)
             }
         }
         b.show()
@@ -77,23 +77,35 @@ class ChatRecycleAdapter(
         return true
     }
 
-    private fun removeText(view: View, chatID: String){
+    private fun removeText(view: View, chatID: String, sender: String){
         val dialogClickListener =
             DialogInterface.OnClickListener { _, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {
-                        rootRef.child("Chat").child(chatID).addListenerForSingleValueEvent(object :
-                            ValueEventListener {
-                            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                dataSnapshot.ref.removeValue()
-                                Toast.makeText(view.context, "Message Removed", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+                        val prefs = view.context.getSharedPreferences("INFO", Context.MODE_PRIVATE)
+                        val key = prefs.getString("Key", "")
+                        if(key == sender) {
+                            rootRef.child("Chat").child(chatID)
+                                .addListenerForSingleValueEvent(object :
+                                    ValueEventListener {
+                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                        dataSnapshot.ref.removeValue()
+                                        Toast.makeText(
+                                            view.context,
+                                            "Message Removed",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                    }
 
-                            override fun onCancelled(error: DatabaseError) {
-                                // Failed to read value
-                            }
-                        })
+                                    override fun onCancelled(error: DatabaseError) {
+                                        // Failed to read value
+                                    }
+                                })
+                        }
+                        else{
+                            Toast.makeText( view.context, "Unable to Delete Message", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
                         Toast.makeText(view.context, "Message Not Removed", Toast.LENGTH_SHORT)

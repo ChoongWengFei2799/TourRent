@@ -109,7 +109,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/image_border"
+                        android:background="@drawable/chat_border"
                         android:paddingBottom="15dp">
 
                         <EditText
