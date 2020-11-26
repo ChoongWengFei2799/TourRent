@@ -61,7 +61,7 @@ class guide_review : Fragment() {
             val ref =
                 FirebaseDatabase.getInstance().reference.child("Review").orderByChild("tourist")
                     .equalTo(key)
-            ref.addValueEventListener(object : ValueEventListener {
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
 
                 }
@@ -113,8 +113,8 @@ class guide_review : Fragment() {
             }
 
             binding.delete.setOnClickListener {
-                val ref = FirebaseDatabase.getInstance().reference.child("Review").child(reviewK)
-                ref.addValueEventListener(object : ValueEventListener {
+                val ref1 = FirebaseDatabase.getInstance().reference.child("Review").child(reviewK)
+                ref1.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
 
                     }
@@ -123,9 +123,11 @@ class guide_review : Fragment() {
                         p0.ref.removeValue()
                         Toast.makeText(activity, "Review Deleted", Toast.LENGTH_SHORT).show()
 
+                        check = false
                         binding.text.text = "Write A Review"
-                        binding.Redit.visibility = View.INVISIBLE
-                        binding.Rcancer.visibility = View.INVISIBLE
+                        binding.Redit.visibility = View.GONE
+                        binding.delete.visibility = View.GONE
+                        binding.Rcancer.visibility = View.GONE
                         binding.save.visibility = View.VISIBLE
                         binding.save.text = "Submit"
                         binding.reviewt.setText("")
@@ -138,11 +140,11 @@ class guide_review : Fragment() {
             binding.save.setOnClickListener {
                 if(binding.reviewt.text.toString() != "") {
                     if (!check) {
-                        val ref =
+                        val ref1 =
                             FirebaseDatabase.getInstance().reference.child("Booking")
                                 .orderByChild("tourist")
                                 .equalTo(key)
-                        ref.addValueEventListener(object : ValueEventListener {
+                        ref1.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onCancelled(p0: DatabaseError) {
 
                             }
@@ -188,7 +190,7 @@ class guide_review : Fragment() {
                         binding.reviewt.clearFocus()
                         binding.reviewt.isEnabled = false
                         binding.Redit.visibility = View.VISIBLE
-                        binding.Rcancer.visibility = View.INVISIBLE
+                        binding.Rcancer.visibility = View.GONE
                         binding.save.visibility = View.GONE
                         binding.delete.visibility = View.GONE
                     }
@@ -203,8 +205,8 @@ class guide_review : Fragment() {
             binding.log.visibility = View.GONE
         }
 
-        val ref = FirebaseDatabase.getInstance().reference.child("Review").orderByChild("guide").equalTo(gkey)
-        ref.addValueEventListener(object : ValueEventListener{
+        val ref2 = FirebaseDatabase.getInstance().reference.child("Review").orderByChild("guide").equalTo(gkey)
+        ref2.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
 
             }

@@ -43,10 +43,12 @@ class tourist_recover : Fragment() {
                     ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (dataSnapshot.exists()) {
+                            Toast.makeText(activity, "Sending...", Toast.LENGTH_SHORT).show()
                             dataSnapshot.children.forEach{
                                 val prof = it.getValue(Profile::class.java)
 
                                 if (prof != null) {
+
                                     val recoverP = prof.password
                                     val sender = GMailSender(
                                         "tourrent.fyp@gmail.com",
@@ -55,8 +57,6 @@ class tourist_recover : Fragment() {
 
                                     val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
                                     StrictMode.setThreadPolicy(policy)
-
-                                    Toast.makeText(activity, "Sending...", Toast.LENGTH_SHORT).show()
 
                                     sender.sendMail(
                                         "Password Recovery",

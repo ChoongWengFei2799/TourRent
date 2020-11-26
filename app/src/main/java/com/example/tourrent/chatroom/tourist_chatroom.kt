@@ -139,7 +139,7 @@ class tourist_chatroom : Fragment() {
                         })
             }
             else{
-                rootRef.child("Chatroom").orderByChild("Guide").equalTo(key)
+                rootRef.child("Chatroom").orderByChild("guide").equalTo(key)
                     .addListenerForSingleValueEvent(
                         object :
                             ValueEventListener {

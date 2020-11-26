@@ -57,7 +57,7 @@ class tourist_edit_password : Fragment() {
                         if(dataSnapshot.exists()){
                             val prof = dataSnapshot.getValue(Profile::class.java)
 
-                            if(prof!!.password == oldPass){
+                            if(prof!!.password == oldPass && oldPass != newPass){
 
                                 rootRef.child("Profile").child(key).child("password").setValue(newPass)
 
@@ -86,7 +86,7 @@ class tourist_edit_password : Fragment() {
                         if(dataSnapshot.exists()){
                             val prof = dataSnapshot.getValue(Guide::class.java)
 
-                            if(prof!!.password == oldPass){
+                            if(prof!!.password == oldPass && oldPass != newPass){
                                 rootRef.child("Guide").child(key).child("password").setValue(newPass)
 
                                 Toast.makeText(activity, "Password Successfully Changed", Toast.LENGTH_LONG).show()

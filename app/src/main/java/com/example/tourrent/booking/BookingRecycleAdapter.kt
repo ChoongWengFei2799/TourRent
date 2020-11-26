@@ -64,7 +64,7 @@ private val key: ArrayList<String>
                 })
         }
         else{
-            rootRef.child("Profile").child(bookingList[position].guide!!)
+            rootRef.child("Profile").child(bookingList[position].tourist!!)
                 .addListenerForSingleValueEvent(object :
                     ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {

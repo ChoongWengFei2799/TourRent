@@ -48,10 +48,10 @@ class edit_schedule : Fragment() {
         binding.scheduleView.layoutManager = linearLayoutManager
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        val sch = ArrayList<Schedule>()
         rootRef.child("Schedule").orderByChild("bookingId").equalTo(bkey).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val sch = ArrayList<Schedule>()
                 dataSnapshot.children.forEach{
                     val schedule = it.getValue(Schedule::class.java)
                     if (schedule != null) {
