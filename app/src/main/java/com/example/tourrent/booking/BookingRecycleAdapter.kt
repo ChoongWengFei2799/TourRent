@@ -111,15 +111,9 @@ private val key: ArrayList<String>
         }
         
         holder.itemView.setOnClickListener {
-            if(bookingList[position].type!!.contains("P")){
+            if(bookingList[position].type!!.contains("P")||bookingList[position].type!!.contains("R")||bookingList[position].type!!.contains("C")){
                 val action = booking_listDirections.actionBookingListToBookingPending(key[position])
                 it.findNavController().navigate(action)
-            }
-            else if(bookingList[position].type!!.contains("R")){
-                Toast.makeText(it.context, "Offer Rejected", Toast.LENGTH_SHORT).show()
-            }
-            else if(bookingList[position].type!!.contains("C")){
-                Toast.makeText(it.context, "Offer Cancelled", Toast.LENGTH_SHORT).show()
             }
             else{
                 val action = booking_listDirections.actionBookingListToTouristBooking(key[position])

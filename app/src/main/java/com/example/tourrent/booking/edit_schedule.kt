@@ -20,8 +20,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_schedule.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,6 +54,7 @@ class edit_schedule : Fragment() {
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val sch = ArrayList<Schedule>()
+                binding.scheduleView.adapter = ScheduleRecycleAdapter(sch, bkey)
                 dataSnapshot.children.forEach{
                     val schedule = it.getValue(Schedule::class.java)
                     if (schedule != null) {
@@ -63,8 +66,8 @@ class edit_schedule : Fragment() {
                     binding.text123.text = "No Schedule Currently"
                 }
                 else{
-                    val nsch = sch.sortedWith(compareBy({it.date}, {it.time}))
-                    binding.scheduleView.adapter = ScheduleRecycleAdapter(nsch.toCollection(ArrayList()), bkey)
+                    binding.text123.text = "All Schedule"
+                    binding.scheduleView.adapter?.notifyDataSetChanged()
                 }
             }
 
@@ -96,7 +99,7 @@ class edit_schedule : Fragment() {
             val day = c.get(Calendar.DAY_OF_MONTH)
             val sdf = SimpleDateFormat("d/M/yyyy")
 
-            val dpd = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            val dpd = DatePickerDialog(requireActivity(), { _, year, monthOfYear, dayOfMonth ->
 
                 binding.date.setText("$dayOfMonth/${monthOfYear+1}/$year")
 
@@ -167,30 +170,6 @@ class edit_schedule : Fragment() {
                             if (id != null) {
                                 rootRef.child("Schedule").child(id).setValue(nsch)
                                 Toast.makeText(activity,"Schedule Added", Toast.LENGTH_SHORT).show()
-                                val sch = ArrayList<Schedule>()
-                                rootRef.child("Schedule").orderByChild("bookingId").equalTo(bkey).addListenerForSingleValueEvent(object :
-                                    ValueEventListener {
-                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                        dataSnapshot.children.forEach{
-                                            val schedule = it.getValue(Schedule::class.java)
-                                            if (schedule != null) {
-                                                sch.add(schedule)
-                                            }
-                                        }
-
-                                        if(sch.isNullOrEmpty()){
-                                            binding.text123.text = "No Schedule Currently"
-                                        }
-                                        else{
-                                            val nsch = sch.sortedWith(compareBy({it.date}, {it.time}))
-                                            binding.scheduleView.adapter = ScheduleRecycleAdapter(nsch.toCollection(ArrayList()), bkey)
-                                        }
-                                    }
-
-                                    override fun onCancelled(error: DatabaseError) {
-                                        // Failed to read value
-                                    }
-                                })
                             }
                         }
                     }

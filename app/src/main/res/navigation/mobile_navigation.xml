@@ -403,6 +403,9 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_open_enter"
             app:popExitAnim="@anim/fragment_open_exit"/>
+        <action
+            android:id="@+id/action_booking_list_to_tour_remarks"
+            app:destination="@id/tour_remarks" />
     </fragment>
     <fragment
         android:id="@+id/booking_pending"
@@ -494,6 +497,9 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"/>
+        <action
+            android:id="@+id/action_booking_history_to_tour_remarks"
+            app:destination="@id/tour_remarks" />
     </fragment>
     <fragment
         android:id="@+id/history"

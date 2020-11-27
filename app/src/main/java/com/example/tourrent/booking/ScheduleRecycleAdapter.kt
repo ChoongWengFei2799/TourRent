@@ -59,9 +59,6 @@ private val key: String
                                             if(sch.time == scheduleList[position].time && sch.date == scheduleList[position].date){
                                                 p0.ref.removeValue()
                                                 Toast.makeText(it.context,"Schedule Removed", Toast.LENGTH_SHORT).show()
-
-                                                scheduleList.remove(scheduleList[position])
-                                                notifyDataSetChanged()
                                             }
                                         }
                                     }

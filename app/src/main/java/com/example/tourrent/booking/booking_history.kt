@@ -51,7 +51,7 @@ class booking_history : Fragment() {
             val ref =
                 FirebaseDatabase.getInstance().reference.child("Booking").orderByChild("tourist")
                     .equalTo(key)
-            ref.addValueEventListener(object : ValueEventListener {
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
 
                 }
@@ -85,7 +85,7 @@ class booking_history : Fragment() {
             val ref =
                 FirebaseDatabase.getInstance().reference.child("Booking").orderByChild("guide")
                     .equalTo(key)
-            ref.addValueEventListener(object : ValueEventListener {
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
 
                 }

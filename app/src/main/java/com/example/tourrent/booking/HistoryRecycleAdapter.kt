@@ -111,14 +111,9 @@ class HistoryRecycleAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            if(bookingList[position].type!!.contains("P")){
-                Toast.makeText(it.context, "Offer Rejected", Toast.LENGTH_SHORT).show()
-            }
-            else if(bookingList[position].type!!.contains("R")){
-                Toast.makeText(it.context, "Offer Rejected", Toast.LENGTH_SHORT).show()
-            }
-            else if(bookingList[position].type!!.contains("C")){
-                Toast.makeText(it.context, "Offer Cancelled", Toast.LENGTH_SHORT).show()
+            if(bookingList[position].type!!.contains("P")||bookingList[position].type!!.contains("C")||bookingList[position].type!!.contains("R")){
+                val action = booking_historyDirections.actionBookingHistoryToTourRemarks(key[position])
+                it.findNavController().navigate(action)
             }
             else{
                 val action = booking_historyDirections.actionBookingHistoryToHistory2(key[position])
